@@ -13,12 +13,14 @@ class MoviesProvider extends ChangeNotifier {
   List<Cast> castMovies = [];
   List<Cast> teamMovies = [];
   List<SimilarMovie> similarsMovies = [];
+  List<TopRatedMovie> topRatedMovies = [];
   
   MoviesProvider() {
     print('Provider inicializado');
 
     this.getOnDisplayMovies();
     this.getPopularMovies();
+    this.getTopRatedMovies();
   }
 
   getOnDisplayMovies() async {
@@ -70,8 +72,6 @@ class MoviesProvider extends ChangeNotifier {
   }
 
   Future<List<SimilarMovie>> getsimilarMovies(int idMovie) async {
-    print('************* Similares **************');
-
     var url = Uri.https(this._baseUrl, '3/movie/${idMovie}/similar', {
       'api_key': this._apiKey,
       'language': this._language,
@@ -84,6 +84,22 @@ class MoviesProvider extends ChangeNotifier {
     this.similarsMovies = similarResponse.results;
 
     return similarsMovies;
+  }
+
+  getTopRatedMovies() async {
+    var url = Uri.https(this._baseUrl, '3/movie/top_rated', {
+      'api_key': this._apiKey,
+      'language': this._language,
+      'page': '1'
+    });
+
+    final response = await http.get(url);
+    final topRatedResponse = TopratedResponse.fromJson(response.body);
+
+    this.topRatedMovies = topRatedResponse.results;
+
+    // Se detecta un cambio, se vuelven a crear los widgets
+    notifyListeners();
   }
 
 }

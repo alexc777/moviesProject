@@ -16,13 +16,11 @@ class HomeScreen extends StatelessWidget {
         elevation: 0,
         actions: [
           IconButton(
-            icon: Icon(Icons.search_outlined),
-            onPressed: () {},
-          ),
-          IconButton(
             // icon: Icon(Icons.trending_up, color: Colors.red,),
             icon: Icon(Icons.whatshot , color: Colors.red,),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, 'top');
+            },
           )
         ],
       ),
