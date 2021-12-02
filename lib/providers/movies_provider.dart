@@ -10,6 +10,9 @@ class MoviesProvider extends ChangeNotifier {
 
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
+  List<Cast> castMovies = [];
+  List<Cast> teamMovies = [];
+  List<SimilarMovie> similarsMovies = [];
   
   MoviesProvider() {
     print('Provider inicializado');
@@ -46,10 +49,41 @@ class MoviesProvider extends ChangeNotifier {
 
     this.popularMovies = [...popularMovies,...pupularResponse.results];
 
-    print(popularMovies[0]);
-
     // Se detecta un cambio, se vuelven a crear los widgets
     notifyListeners();
+  }
+  
+  Future<List> getPepolMovie(int idMovie) async {
+    var url = Uri.https(this._baseUrl, '3/movie/${idMovie}/credits', {
+      'api_key': this._apiKey,
+      'language': this._language,
+      'page': '1'
+    });
+
+    final response = await http.get(url);
+    final pepolResponse = PepolResponse.fromJson(response.body);
+
+    this.castMovies = pepolResponse.cast;
+    this.teamMovies = pepolResponse.crew;
+
+    return [castMovies, teamMovies];
+  }
+
+  Future<List<SimilarMovie>> getsimilarMovies(int idMovie) async {
+    print('************* Similares **************');
+
+    var url = Uri.https(this._baseUrl, '3/movie/${idMovie}/similar', {
+      'api_key': this._apiKey,
+      'language': this._language,
+      'page': '1'
+    });
+
+    final response = await http.get(url);
+    final similarResponse = SimilarResponse.fromJson(response.body);
+
+    this.similarsMovies = similarResponse.results;
+
+    return similarsMovies;
   }
 
 }
