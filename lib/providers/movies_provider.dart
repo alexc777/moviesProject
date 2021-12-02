@@ -102,4 +102,18 @@ class MoviesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // sendRated(int idMovie, double valueRated) async {
+  //   var url = Uri.https(this._baseUrl, '3/movie/${idMovie}/rating', {'api_key': this._apiKey,});
+
+  //   Map<String, String> headersPost = {
+  //     'Content-Type': 'application/json;charset=utf-8'
+  //   };
+
+
+
+  //   final response = await http.post(url, headers:headersPost, body: { 'value': valueRated });
+
+  //   print('POST: ${response.body}');
+  // }
+
 }
