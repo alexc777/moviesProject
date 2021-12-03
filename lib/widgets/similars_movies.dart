@@ -35,7 +35,7 @@ class SimilarMovieCard extends StatelessWidget {
           child: ListView.builder(
             itemCount: movies.length,
             scrollDirection: Axis.horizontal,
-            itemBuilder: (_, int index) => _SimilarCard(movie: movies[index],)
+            itemBuilder: (_, int index) => _SimilarCard(movie: movies[index], customID: '${ movies[index].title}${ UniqueKey().toString() }')
           ),
         );
       },
@@ -46,8 +46,9 @@ class SimilarMovieCard extends StatelessWidget {
 class _SimilarCard extends StatelessWidget {
 
   final SimilarMovie movie;
+  final String customID;
 
-  const _SimilarCard({Key? key, required this.movie}) : super(key: key);
+  const _SimilarCard({Key? key, required this.movie, required this.customID}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +59,17 @@ class _SimilarCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              placeholder: AssetImage('assets/no-image.jpg'),
-              image: NetworkImage(movie.posterImg),
-              width: 130,
-              height: 150,
-              fit: BoxFit.cover,
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, 'similar', arguments: movie),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage(
+                placeholder: AssetImage('assets/no-image.jpg'),
+                image: NetworkImage(movie.posterImg),
+                width: 130,
+                height: 150,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
 

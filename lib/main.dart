@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
         'details': ( _ ) => DetailScreen(),
         'top': ( _ ) => TopMovieScreen(),
         'rateddetails': ( _ ) => TopRatedDetailScreen(),
+        'similar': ( _ ) => DetailSimilarScreen(),
       },
       theme: ThemeData.dark(),
     );

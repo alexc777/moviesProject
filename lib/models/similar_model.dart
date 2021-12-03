@@ -33,6 +33,8 @@ class SimilarMovie {
   double voteAverage;
   int voteCount;
 
+  String? heroId;
+
   get posterImg {
     if(this.posterPath != null)
       return 'https://image.tmdb.org/t/p/w500${ this.posterPath }';
