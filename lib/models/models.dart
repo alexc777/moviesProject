@@ -8,5 +8,9 @@ export 'package:project_movies/models/top_rated_model.dart';
 export 'package:project_movies/models/top_rated.dart';
 export 'package:project_movies/models/reviews_model.dart';
 export 'package:project_movies/models/reviews_response.dart';
+export 'package:project_movies/models/token_response.dart';
+export 'package:project_movies/models/session_response.dart';
+export 'package:project_movies/models/rating_response.dart';
+
 
 

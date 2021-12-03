@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_movies/models/models.dart';
+import 'package:project_movies/providers/movies_provider.dart';
 import 'package:project_movies/widgets/widgets.dart';
+import 'package:provider/provider.dart';
 
 class DetailScreen extends StatelessWidget {
 
@@ -79,6 +81,8 @@ class _PosterAndTitle extends StatelessWidget {
     final TextTheme customTextTheme = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
 
+    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+
     return Container(
       margin: EdgeInsets.only(top: 20),
       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -123,19 +127,74 @@ class _PosterAndTitle extends StatelessWidget {
                   IconButton(
                     tooltip: 'Me Encanta',
                     icon: Icon(Icons.sentiment_satisfied_alt, size: 25),
-                    onPressed: () {},
+                    onPressed: () async {
+                      final max = await moviesProvider.sendRated(movie.id, 10);
+
+                      if (max == 'Success.') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Text('Gracias por votar 📮🎉📈', textAlign: TextAlign.center,style: TextStyle( color: Colors.white,fontSize: 20)),
+                          )
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.indigoAccent,
+                            content: Text('Voto actualizado 📫📊', textAlign: TextAlign.center,style: TextStyle( color: Colors.white, fontSize: 20),),
+                          )
+                        );
+                      }
+
+                    },
                   ),
                   SizedBox(width: 5),
                   IconButton(
                     tooltip: 'Regular',
                     icon: Icon(Icons.sentiment_satisfied, size: 25),
-                    onPressed: () {},
+                    onPressed: () async {
+                      final regular = await moviesProvider.sendRated(movie.id, 5);
+
+                      if (regular == 'Success.') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Text('Gracias por votar 📮🎉📈', textAlign: TextAlign.center,style: TextStyle( color: Colors.white,fontSize: 20)),
+                          )
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.indigoAccent,
+                            content: Text('Voto actualizado 📫📊', textAlign: TextAlign.center,style: TextStyle( color: Colors.white, fontSize: 20),),
+                          )
+                        );
+                      }
+                    },
                   ),
                   SizedBox(width: 5),
                   IconButton(
                     tooltip: 'Pésimo',
                     icon: Icon(Icons.sentiment_very_dissatisfied , size: 25),
-                    onPressed: () {},
+                    onPressed: () async {
+                      final sad = await  moviesProvider.sendRated(movie.id, 0.5);
+
+                      if (sad == 'Success.') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Text('Gracias por votar 📮🎉📈', textAlign: TextAlign.center,style: TextStyle( color: Colors.white,fontSize: 20)),
+                          )
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.indigoAccent,
+                            content: Text('Voto actualizado 📫📊', textAlign: TextAlign.center,style: TextStyle( color: Colors.white, fontSize: 20),),
+                          )
+                        );
+                      }
+                    },
                   ),
                 ],
               )
@@ -180,4 +239,3 @@ class _TitleCasting extends StatelessWidget {
     );
   }
 }
-
