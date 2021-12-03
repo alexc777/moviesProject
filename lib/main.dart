@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
       routes: {
         'home': ( _ ) => HomeScreen(),
         'details': ( _ ) => DetailScreen(),
-        'top': ( _ ) => TopMovieScreen()
+        'top': ( _ ) => TopMovieScreen(),
+        'rateddetails': ( _ ) => TopRatedDetailScreen(),
       },
       theme: ThemeData.dark(),
     );

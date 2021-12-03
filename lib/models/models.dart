@@ -6,4 +6,7 @@ export 'package:project_movies/models/similar_model.dart';
 export 'package:project_movies/models/similar_response.dart';
 export 'package:project_movies/models/top_rated_model.dart';
 export 'package:project_movies/models/top_rated.dart';
+export 'package:project_movies/models/reviews_model.dart';
+export 'package:project_movies/models/reviews_response.dart';
+
 

@@ -14,6 +14,7 @@ class MoviesProvider extends ChangeNotifier {
   List<Cast> teamMovies = [];
   List<SimilarMovie> similarsMovies = [];
   List<TopRatedMovie> topRatedMovies = [];
+  List<ReviewsMovie> listReviewsMovies = [];
   
   MoviesProvider() {
     print('Provider inicializado');
@@ -84,6 +85,17 @@ class MoviesProvider extends ChangeNotifier {
     this.similarsMovies = similarResponse.results;
 
     return similarsMovies;
+  }
+
+  Future<List<ReviewsMovie>> getReviewsMovies(int idMovie) async {
+    var url = Uri.https(this._baseUrl, '3/movie/${idMovie}/reviews', {'api_key': this._apiKey});
+
+    final response = await http.get(url);
+    final reviewsResponse = ReviewsResponse.fromJson(response.body);
+
+    this.listReviewsMovies = reviewsResponse.results;
+
+    return listReviewsMovies;
   }
 
   getTopRatedMovies() async {
