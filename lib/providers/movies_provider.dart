@@ -18,6 +18,7 @@ class MoviesProvider extends ChangeNotifier {
   List<ReviewsMovie> listReviewsMovies = [];
 
   String request_token = '';
+  String guest_session_id = '';
   String session_id = '';
   
   MoviesProvider() {
@@ -28,7 +29,8 @@ class MoviesProvider extends ChangeNotifier {
     this.getTopRatedMovies();
 
     // Autenticación para enviar una calificación
-    this.getTokenAuth();
+    this.getSessionAuth();
+    // this.getTokenAuth();
   }
 
   getOnDisplayMovies() async {
@@ -121,6 +123,7 @@ class MoviesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // TODO: Segundo metodo de Auth
   getTokenAuth() async {
     var url = Uri.https(this._baseUrl, '3/authentication/token/new', {'api_key': this._apiKey,});
 
@@ -133,8 +136,20 @@ class MoviesProvider extends ChangeNotifier {
 
     sendTokenSession('7d062874f71c4c85e6bccff55434dfd7ef5666a0');
   }
+  
+  getSessionAuth() async {
+    var url = Uri.https(this._baseUrl, '3/authentication/guest_session/new', {'api_key': this._apiKey,});
+
+    final responseAuth = await http.get(url);
+    final sessionAuthResponse = GuestSessionResponse.fromJson(responseAuth.body);
+
+    guest_session_id = sessionAuthResponse.guestSessionId;
+
+    print('Guest Session: ${guest_session_id}');
+  }
 
 
+  // TODO: Segundo metodo de session para rating
   sendTokenSession(String token) async {
     var url = Uri.https(this._baseUrl, '3/authentication/session/new', {'api_key': this._apiKey,});
 
@@ -153,8 +168,9 @@ class MoviesProvider extends ChangeNotifier {
 
   }
 
+  // var url = Uri.https(this._baseUrl, '3/movie/${idMovie}/rating', {'api_key': this._apiKey, 'session_id': this.session_id});
   sendRated(int idMovie, double valueRated) async {
-    var url = Uri.https(this._baseUrl, '3/movie/${idMovie}/rating', {'api_key': this._apiKey, 'session_id': this.session_id});
+    var url = Uri.https(this._baseUrl, '3/movie/${idMovie}/rating', {'api_key': this._apiKey, 'guest_session_id': this.guest_session_id});
 
     Map<String,String> headers = {'Content-Type':'application/json'};
     final jsonRating = jsonEncode({"value":valueRated});

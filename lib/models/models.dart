@@ -11,6 +11,7 @@ export 'package:project_movies/models/reviews_response.dart';
 export 'package:project_movies/models/token_response.dart';
 export 'package:project_movies/models/session_response.dart';
 export 'package:project_movies/models/rating_response.dart';
+export 'package:project_movies/models/guest_session_response.dart';
 
 
 
