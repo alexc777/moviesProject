@@ -116,6 +116,13 @@ class ProductionCompany {
     
     return 'https://i.stack.imgur.com/GNhxO.png';
   }
+  
+  get bannerCompanie {
+    if(this.logoPath != null)
+      return 'https://image.tmdb.org/t/p/w500${ this.logoPath }';
+    
+    return 'https://i.stack.imgur.com/GNhxO.png';
+  }
 
   factory ProductionCompany.fromJson(String str) => ProductionCompany.fromMap(json.decode(str));
 

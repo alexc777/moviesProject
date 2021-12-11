@@ -13,5 +13,7 @@ export 'package:project_movies/models/session_response.dart';
 export 'package:project_movies/models/rating_response.dart';
 export 'package:project_movies/models/guest_session_response.dart';
 export 'package:project_movies/models/movie_detail_response.dart';
+export 'package:project_movies/models/companie_response.dart';
+export 'package:project_movies/models/logos_response.dart';
 
 

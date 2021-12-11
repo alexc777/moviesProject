@@ -41,8 +41,6 @@ class CardReviewsMovie extends StatelessWidget {
 
         final List<ReviewsMovie> reviews = snapshot.data!;
 
-        print(reviews);
-
         if (reviews.length == 0) {
           return Container(
             margin: EdgeInsets.only(bottom: 10),

@@ -4,11 +4,11 @@ import 'package:project_movies/models/models.dart';
 import 'package:project_movies/providers/movies_provider.dart';
 import 'package:provider/provider.dart';
 
-class CompaniesMovieCard extends StatelessWidget {
+class LogosCompaniesCarrusel extends StatelessWidget {
 
-  final int idMovie;
+  final int idCompanie;
 
-  const CompaniesMovieCard({Key? key, required this.idMovie}) : super(key: key);
+  const LogosCompaniesCarrusel({Key? key, required this.idCompanie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class CompaniesMovieCard extends StatelessWidget {
     final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
 
     return FutureBuilder(
-      future: moviesProvider.getDetailMovie(idMovie),
+      future: moviesProvider.getimagesCompanie(idCompanie),
       builder: (_, AsyncSnapshot snapshot) {
         if (!snapshot.hasData) {
           return Container(
@@ -26,16 +26,16 @@ class CompaniesMovieCard extends StatelessWidget {
           );
         }
 
-        final List<ProductionCompany> companies = snapshot.data!;
+        final List<Logo> logos = snapshot.data!;
 
         return Container(
           margin: EdgeInsets.only(bottom: 30),
           width: double.infinity,
-          height: 130,
+          height: 210,
           child: ListView.builder(
-            itemCount: companies.length,
+            itemCount: logos.length,
             scrollDirection: Axis.horizontal,
-            itemBuilder: (_, int index) => _CompanieCard(companie: companies[index])
+            itemBuilder: (_, int index) => _CompanieCard(logo: logos[index])
           ),
         );
       },
@@ -45,41 +45,31 @@ class CompaniesMovieCard extends StatelessWidget {
 
 class _CompanieCard extends StatelessWidget {
 
-  final ProductionCompany companie;
+  final Logo logo;
 
-  const _CompanieCard({Key? key, required this.companie}) : super(key: key);
+  const _CompanieCard({Key? key, required this.logo}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
 
     return Container(
-      width: 200,
-      height: 80,
+      width: 220,
+      height: 200,
       margin: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
         children: [
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context, 'companie', arguments: companie),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
-                placeholder: AssetImage('assets/no-image.jpg'),
-                image: NetworkImage(companie.logoImg),
-                width: 220,
-                height: 90,
-                fit: BoxFit.contain,
-              ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: FadeInImage(
+              placeholder: AssetImage('assets/no-image.jpg'),
+              image: NetworkImage(logo.logosCompanie),
+              width: 220,
+              height: 200,
+              fit: BoxFit.contain,
             ),
           ),
 
           SizedBox(height: 5),
-
-          Text(
-            companie.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center
-          )
         ],
       ),
     );

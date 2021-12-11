@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         'top': ( _ ) => TopMovieScreen(),
         'rateddetails': ( _ ) => TopRatedDetailScreen(),
         'similar': ( _ ) => DetailSimilarScreen(),
+        'companie': ( _ ) => CompanieScreen(),
       },
       theme: ThemeData.dark(),
     );

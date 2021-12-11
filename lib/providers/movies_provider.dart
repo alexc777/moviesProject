@@ -21,6 +21,8 @@ class MoviesProvider extends ChangeNotifier {
   String request_token = '';
   String guest_session_id = '';
   String session_id = '';
+
+
   
   MoviesProvider() {
     print('Provider inicializado');
@@ -196,9 +198,25 @@ class MoviesProvider extends ChangeNotifier {
 
     this.productionCompanies = detailResponse.productionCompanies;
 
-    print('Conpanias: ${productionCompanies}');
-
     return productionCompanies;
+  }
+
+  Future<CompanieResponse> getInfoCompanie(int idCompanie) async {
+    var url = Uri.https(this._baseUrl, '3/company/${idCompanie}', {'api_key': this._apiKey,});
+
+    final response = await http.get(url);
+    final infoResponse = CompanieResponse.fromJson(response.body);
+
+    return infoResponse;
+  }
+  
+  Future<List> getimagesCompanie(int idCompanie) async {
+    var url = Uri.https(this._baseUrl, '3/company/${idCompanie}/images', {'api_key': this._apiKey,});
+
+    final response = await http.get(url);
+    final infoResponse = LogosResponse.fromJson(response.body);
+
+    return infoResponse.logos;
   }
 
 }
