@@ -23,6 +23,8 @@ class DetailSimilarScreen extends StatelessWidget {
               CastingCards(idMovie: movie.id, type: 'casting'),
               _TitleSimilar(title: 'Equipo de producción'),
               CastingCards(idMovie: movie.id, type: 'team'),
+              _TitleSimilar(title: 'Compañias productoras'),
+              CompaniesMovieCard(idMovie: movie.id),
               _TitleSimilar(title: 'Películas similares'),
               SimilarMovieCard(idMovie: movie.id)
             ])

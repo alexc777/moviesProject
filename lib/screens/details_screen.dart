@@ -23,6 +23,8 @@ class DetailScreen extends StatelessWidget {
               CastingCards(idMovie: movie.id, type: 'casting'),
               _TitleCasting(title: 'Equipo de producción'),
               CastingCards(idMovie: movie.id, type: 'team'),
+              _TitleCasting(title: 'Compañias productoras'),
+              CompaniesMovieCard(idMovie: movie.id),
               _TitleCasting(title: 'Películas similares'),
               SimilarMovieCard(idMovie: movie.id)
             ])

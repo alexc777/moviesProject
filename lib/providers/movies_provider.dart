@@ -16,6 +16,7 @@ class MoviesProvider extends ChangeNotifier {
   List<SimilarMovie> similarsMovies = [];
   List<TopRatedMovie> topRatedMovies = [];
   List<ReviewsMovie> listReviewsMovies = [];
+  List<ProductionCompany> productionCompanies = [];
 
   String request_token = '';
   String guest_session_id = '';
@@ -182,6 +183,22 @@ class MoviesProvider extends ChangeNotifier {
     print('POST Message: ${ratingResponse.statusMessage}');
 
     return ratingResponse.statusMessage;
+  }
+
+  Future<List> getDetailMovie(int idMovie) async {
+    var url = Uri.https(this._baseUrl, '3/movie/${idMovie}', {
+      'api_key': this._apiKey,
+      'language': this._language,
+    });
+
+    final response = await http.get(url);
+    final detailResponse = MovieDetailResponse.fromJson(response.body);
+
+    this.productionCompanies = detailResponse.productionCompanies;
+
+    print('Conpanias: ${productionCompanies}');
+
+    return productionCompanies;
   }
 
 }
